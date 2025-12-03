@@ -1,26 +1,235 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome Page</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full viewport height */
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            font-size: 3rem;
-            color: #333;
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cyber Click — Responsive Header</title>
+<style>
+:root{
+  --bg:#020617;
+  --frame:#0b1220;
+  --accent:#00eaff;
+  --accent2:#0081a7;
+  --text:#e2e8f0;
+  --muted:#64748b;
+}
+
+html,body{
+  margin:0;
+  height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Consolas, "Fira Code", monospace;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.frame {
+  width: min(92vw, 780px);
+  height: min(92vh, 760px);
+  background: linear-gradient(180deg, #0e1425, #09101d);
+  border: 1px solid rgba(0,234,255,0.2);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0,234,255,0.08);
+}
+
+/* Header with flex */
+.header-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 12px 16px;
+  background: #0a0f1f;
+  border-bottom: 1px solid rgba(0,234,255,0.25);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: clamp(18px, 3vw, 28px);
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* Each header part */
+.header-flex > div {
+  margin: 0 4px;
+}
+
+/* Keep last part together */
+.sticky {
+  white-space: nowrap;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 500px) {
+  .header-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+  .header-flex > div {
+    margin: 4px 0;
+  }
+}
+
+.content {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align:center;
+}
+
+.big-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 320px;
+  height: 120px;
+  border-radius: 16px;
+  font-size: 34px;
+  font-weight: 700;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+  color: black;
+  border: 0;
+  cursor: pointer;
+  transition: transform .12s, box-shadow .12s;
+  box-shadow: 0 0 25px rgba(0,234,255,0.4);
+  user-select: none;
+  text-shadow: 0 0 4px rgba(0,0,0,0.6);
+}
+.big-btn:hover { box-shadow: 0 0 35px rgba(0,234,255,0.8); }
+.big-btn:active { transform: scale(.98); }
+
+.emoji-area {
+  margin-top: 20px;
+  min-height: 200px;
+  display: grid;
+  place-items: center;
+}
+
+.finger {
+  font-size: 140px;
+  opacity: 0;
+  transition: opacity .28s ease;
+  cursor: pointer;
+  filter: drop-shadow(0 0 30px rgba(0,234,255,0.35));
+  user-select: none;
+}
+
+.finger.show {
+  opacity: 1;
+  animation: cyberWiggle 1s ease-in-out infinite;
+}
+
+@keyframes cyberWiggle {
+  0% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-6px) rotate(-6deg); }
+  50% { transform: translateY(-14px) rotate(6deg); }
+  75% { transform: translateY(-4px) rotate(-2deg); }
+  100% { transform: translateY(0) rotate(0); }
+}
+
+.hint {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  transition: opacity .24s ease;
+  opacity: 0; 
+  height: 1em; 
+  display:inline-block;
+}
+
+footer {
+  text-align: center;
+  padding: 12px;
+  border-top: 1px solid rgba(0,234,255,0.25);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+footer strong {
+  color: var(--accent);
+}
+
+@media (max-width: 430px){
+  .big-btn {
+    width: 90%;
+    height: 90px;
+    font-size: 26px;
+  }
+  .finger {
+    font-size: 100px;
+  }
+  .header-flex {
+    font-size: clamp(14px, 4vw, 22px);
+  }
+}
+</style>
 </head>
 <body>
-    <h1>Welcome</h1>
+
+<div class="frame">
+
+  <header class="header-flex">
+    <div>🚧 WORK IN PROGRESS</div>
+    <div>😜</div>
+    <div class="sticky">LAZY DEVELOPER 🚧</div>
+  </header>
+
+  <div class="content">
+    <h1 style="color:var(--muted); font-size:18px; margin-bottom:20px;">
+      Click the button to reveal the surprise
+    </h1>
+
+    <button id="clickBtn" class="big-btn">CLICK ME</button>
+
+    <div class="emoji-area">
+      <div id="finger" class="finger" role="img" aria-hidden="true">🖕</div>
+    </div>
+
+    <div class="hint">Click the emoji to hide it again</div>
+  </div>
+
+  <footer>
+    Made with 💬 by <strong>ChatGPT</strong>
+  </footer>
+
+</div>
+
+<script>
+const btn = document.getElementById("clickBtn");
+const finger = document.getElementById("finger");
+const hint = document.querySelector(".hint");
+
+function show() {
+  btn.style.opacity = "0.15";
+  btn.style.pointerEvents = "none";
+  finger.classList.add("show");
+  hint.style.opacity = "1";
+  finger.setAttribute('aria-hidden','false');
+}
+
+function hide() {
+  btn.style.opacity = "1";
+  btn.style.pointerEvents = "auto";
+  finger.classList.remove("show");
+  hint.style.opacity = "0";
+  finger.setAttribute('aria-hidden','true');
+}
+
+hint.style.opacity = "0";
+finger.setAttribute('aria-hidden','true');
+
+btn.onclick = show;
+finger.onclick = hide;
+
+btn.addEventListener('keydown', (e) => { if(e.key==='Enter'||e.key===' ') { e.preventDefault(); show(); } });
+document.addEventListener('keydown', (e) => { if(e.key==='Escape') hide(); });
+</script>
+
 </body>
 </html>
