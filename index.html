@@ -1,234 +1,139 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Cyber Click — Responsive Header</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Trail with TBT</title>
 <style>
-:root{
-  --bg:#020617;
-  --frame:#0b1220;
-  --accent:#00eaff;
-  --accent2:#0081a7;
-  --text:#e2e8f0;
-  --muted:#64748b;
-}
+    body {
+        margin: 0;
+        overflow: hidden;
+        background: linear-gradient(to top, #87CEEB, #fff);
+        height: 100vh;
+        cursor: none;
+        font-family: Arial, sans-serif;
+    }
 
-html,body{
-  margin:0;
-  height:100%;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Consolas, "Fira Code", monospace;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
+    /* Faint TBT background with hoverable letters */
+    .tbt-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 300px;
+        font-weight: bold;
+        user-select: none;
+        display: flex;
+        gap: 20px;
+        z-index: 0;
+    }
 
-.frame {
-  width: min(92vw, 780px);
-  height: min(92vh, 760px);
-  background: linear-gradient(180deg, #0e1425, #09101d);
-  border: 1px solid rgba(0,234,255,0.2);
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-shadow: 0 0 60px rgba(0,234,255,0.08);
-}
+    .tbt-container span {
+        color: rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease, color 0.3s ease;
+        pointer-events: auto;
+    }
 
-/* Header with flex */
-.header-flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-  padding: 12px 16px;
-  background: #0a0f1f;
-  border-bottom: 1px solid rgba(0,234,255,0.25);
-  color: var(--accent);
-  font-weight: 700;
-  font-size: clamp(18px, 3vw, 28px);
-  line-height: 1.2;
-  text-align: center;
-}
+    .tbt-container span:hover {
+        transform: scale(1.2) rotate(10deg);
+        color: rgba(255, 255, 255, 0.3);
+    }
 
-/* Each header part */
-.header-flex > div {
-  margin: 0 4px;
-}
-
-/* Keep last part together */
-.sticky {
-  white-space: nowrap;
-}
-
-/* Mobile: stack vertically */
-@media (max-width: 500px) {
-  .header-flex {
-    flex-direction: column;
-    align-items: center;
-  }
-  .header-flex > div {
-    margin: 4px 0;
-  }
-}
-
-.content {
-  flex: 1;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align:center;
-}
-
-.big-btn {
-  display: inline-grid;
-  place-items: center;
-  width: 320px;
-  height: 120px;
-  border-radius: 16px;
-  font-size: 34px;
-  font-weight: 700;
-  background: linear-gradient(180deg, var(--accent), var(--accent2));
-  color: black;
-  border: 0;
-  cursor: pointer;
-  transition: transform .12s, box-shadow .12s;
-  box-shadow: 0 0 25px rgba(0,234,255,0.4);
-  user-select: none;
-  text-shadow: 0 0 4px rgba(0,0,0,0.6);
-}
-.big-btn:hover { box-shadow: 0 0 35px rgba(0,234,255,0.8); }
-.big-btn:active { transform: scale(.98); }
-
-.emoji-area {
-  margin-top: 20px;
-  min-height: 200px;
-  display: grid;
-  place-items: center;
-}
-
-.finger {
-  font-size: 140px;
-  opacity: 0;
-  transition: opacity .28s ease;
-  cursor: pointer;
-  filter: drop-shadow(0 0 30px rgba(0,234,255,0.35));
-  user-select: none;
-}
-
-.finger.show {
-  opacity: 1;
-  animation: cyberWiggle 1s ease-in-out infinite;
-}
-
-@keyframes cyberWiggle {
-  0% { transform: translateY(0) rotate(0); }
-  25% { transform: translateY(-6px) rotate(-6deg); }
-  50% { transform: translateY(-14px) rotate(6deg); }
-  75% { transform: translateY(-4px) rotate(-2deg); }
-  100% { transform: translateY(0) rotate(0); }
-}
-
-.hint {
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 13px;
-  transition: opacity .24s ease;
-  opacity: 0; 
-  height: 1em; 
-  display:inline-block;
-}
-
-footer {
-  text-align: center;
-  padding: 12px;
-  border-top: 1px solid rgba(0,234,255,0.25);
-  font-size: 13px;
-  color: var(--muted);
-}
-
-footer strong {
-  color: var(--accent);
-}
-
-@media (max-width: 430px){
-  .big-btn {
-    width: 90%;
-    height: 90px;
-    font-size: 26px;
-  }
-  .finger {
-    font-size: 100px;
-  }
-  .header-flex {
-    font-size: clamp(14px, 4vw, 22px);
-  }
-}
+    /* Cloud styles */
+    .cloud {
+        position: absolute;
+        font-size: 40px;
+        color: rgba(255, 255, 255, 0.8);
+        pointer-events: none;
+        user-select: none;
+        transition: transform 0.2s, opacity 0.3s;
+        z-index: 1;
+    }
 </style>
 </head>
 <body>
 
-<div class="frame">
-
-  <header class="header-flex">
-    <div>🚧 WORK IN PROGRESS</div>
-    <div>😜</div>
-    <div class="sticky">LAZY DEVELOPER 🚧</div>
-  </header>
-
-  <div class="content">
-    <h1 style="color:var(--muted); font-size:18px; margin-bottom:20px;">
-      Click the button to reveal the surprise
-    </h1>
-
-    <button id="clickBtn" class="big-btn">CLICK ME</button>
-
-    <div class="emoji-area">
-      <div id="finger" class="finger" role="img" aria-hidden="true">🖕</div>
-    </div>
-
-    <div class="hint">Click the emoji to hide it again</div>
-  </div>
-
-  <footer>
-    Made with 💬 by <strong>ChatGPT</strong>
-  </footer>
-
+<!-- Background TBT -->
+<div class="tbt-container">
+    <span>T</span>
+    <span>B</span>
+    <span>T</span>
 </div>
 
 <script>
-const btn = document.getElementById("clickBtn");
-const finger = document.getElementById("finger");
-const hint = document.querySelector(".hint");
+    const clouds = [];
 
-function show() {
-  btn.style.opacity = "0.15";
-  btn.style.pointerEvents = "none";
-  finger.classList.add("show");
-  hint.style.opacity = "1";
-  finger.setAttribute('aria-hidden','false');
-}
+    function random(min, max) {
+        return Math.random() * (max - min) + min;
+    }
 
-function hide() {
-  btn.style.opacity = "1";
-  btn.style.pointerEvents = "auto";
-  finger.classList.remove("show");
-  hint.style.opacity = "0";
-  finger.setAttribute('aria-hidden','true');
-}
+    // Create a cloud at given position
+    function createCloud(x, y) {
+        const cloud = document.createElement('div');
+        cloud.classList.add('cloud');
+        cloud.textContent = '☁';
+        cloud.style.left = x + 'px';
+        cloud.style.top = y + 'px';
+        cloud.style.fontSize = random(30, 60) + 'px';
+        cloud.style.opacity = random(0.5, 0.9);
+        document.body.appendChild(cloud);
+        clouds.push(cloud);
 
-hint.style.opacity = "0";
-finger.setAttribute('aria-hidden','true');
+        // fade out and remove
+        setTimeout(() => {
+            cloud.style.transition = 'opacity 2s, transform 2s';
+            cloud.style.opacity = 0;
+            cloud.style.transform = `scale(0.1) rotate(${random(-90,90)}deg)`;
+            setTimeout(() => {
+                cloud.remove();
+                clouds.splice(clouds.indexOf(cloud), 1);
+            }, 2000);
+        }, 50);
+    }
 
-btn.onclick = show;
-finger.onclick = hide;
+    // Mouse-following cloud trail
+    document.addEventListener('mousemove', (e) => {
+        for(let i=0; i<2; i++) {
+            createCloud(e.clientX + random(-10,10), e.clientY + random(-10,10));
+        }
+    });
 
-btn.addEventListener('keydown', (e) => { if(e.key==='Enter'||e.key===' ') { e.preventDefault(); show(); } });
-document.addEventListener('keydown', (e) => { if(e.key==='Escape') hide(); });
+    // Drifting clouds
+    function driftingCloud() {
+        const x = random(0, window.innerWidth);
+        const y = random(0, window.innerHeight);
+        const cloud = document.createElement('div');
+        cloud.classList.add('cloud');
+        cloud.textContent = '☁';
+        cloud.style.left = x + 'px';
+        cloud.style.top = y + 'px';
+        cloud.style.fontSize = random(40,80) + 'px';
+        cloud.style.opacity = random(0.2,0.5);
+        document.body.appendChild(cloud);
+
+        const dx = random(-0.3,0.3);
+        const dy = random(-0.1,0.1);
+
+        function animate() {
+            let nx = parseFloat(cloud.style.left);
+            let ny = parseFloat(cloud.style.top);
+            cloud.style.left = nx + dx + 'px';
+            cloud.style.top = ny + dy + 'px';
+
+            // loop around screen
+            if(nx > window.innerWidth) cloud.style.left = -100 + 'px';
+            if(nx < -100) cloud.style.left = window.innerWidth + 'px';
+            if(ny > window.innerHeight) cloud.style.top = -100 + 'px';
+            if(ny < -100) cloud.style.top = window.innerHeight + 'px';
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    }
+
+    // Spawn some drifting clouds
+    for(let i=0; i<5; i++) driftingCloud();
 </script>
 
 </body>
